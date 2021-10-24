@@ -3,6 +3,7 @@ import { Grid } from "@mui/material";
 import Layout from "../../components/Layout";
 import Card from "../../components/Card";
 import Title from "../../components/Title";
+import Pagination from "../../components/Pagination";
 
 import { api } from '../../services/api';
 
@@ -29,7 +30,7 @@ export async function getStaticProps({ params }) {
 
   const result = await api.get("/characters", {
     params: {
-      limit: LIMIT_PER_PAGE, 
+      limit: LIMIT_PER_PAGE,
       offset: LIMIT_PER_PAGE * params.page - LIMIT_PER_PAGE,
     }
   });
@@ -41,7 +42,7 @@ export async function getStaticProps({ params }) {
   }
 }
 
-export default function CharactersPage({ characters }) {  
+export default function CharactersPage({ characters }) {
   return (
     <Layout title="Characters">
       <Title>Characters</Title>
@@ -52,6 +53,18 @@ export default function CharactersPage({ characters }) {
             <Card content={character} />
           </Grid>
         ))}
+      </Grid>
+
+      <Grid
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Grid item>
+          <Pagination numPages={NUM_PAGES} />
+        </Grid>
       </Grid>
     </Layout>
   );

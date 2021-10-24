@@ -9,6 +9,7 @@ export default function Layout({ children, title = "Page without title" }) {
     <Container>
       <Head>
         <title>Marvel API | { title }</title>
+        <link rel="shortcut icon" href="/assets/favicon.png" />
       </Head>
 
       <Header />

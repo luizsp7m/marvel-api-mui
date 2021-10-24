@@ -1,13 +1,20 @@
-import { Container, Image, Description } from './styles';
+import { Container, ImageContainer, Description } from './styles';
+
+import Image from 'next/image';
 
 export default function CharacterInformation({ character }) {
   const imgFormatted = `${character.thumbnail.path}/portrait_incredible.${character.thumbnail.extension}`;
 
   return (
     <Container>
-      <Image>
-        <img src={imgFormatted} alt={character.name} />
-      </Image>
+      <ImageContainer>
+        <Image
+          src={imgFormatted}
+          alt={character.name}
+          width={300}
+          height={450}
+        />
+      </ImageContainer>
 
       <Description>
         <h1>{character.name}</h1>

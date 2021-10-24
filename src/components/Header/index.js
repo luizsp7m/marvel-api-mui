@@ -1,11 +1,11 @@
 import { Container } from './styles'
 
-export default function Header() {
-  const logoUrl = "https://www.thegeekgeneration.com/wp-content/uploads/2009/12/thumbnail-marvel-character-logo.jpg";
+import Image from 'next/image';
 
+export default function Header() {
   return (
     <Container>
-      <img src={logoUrl} alt="Marvel Logo" />
+      <Image src="/assets/logo.jpg" alt="Marvel Logo" width={220} height={87} />
     </Container>
   );
 }

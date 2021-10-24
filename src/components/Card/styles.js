@@ -6,6 +6,7 @@ export const Container = styled.div`
   align-items: center;
   border: 1px solid rgba(0, 0, 0, .05);
   cursor: pointer;
+  background: #fafafa;
 
   &:hover {
     > img {
@@ -26,6 +27,7 @@ export const Container = styled.div`
   > h3 {
     color: gray;
     font-size: 13px;
+    text-align: center;
 
     max-width: 20ch;
     overflow: hidden;
@@ -38,9 +40,21 @@ export const Container = styled.div`
     font-size: 13px;
     text-align: center;
 
-    max-width: 20ch;
+    max-width: 14ch;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  @media(max-width: 375px) {
+    > h3, p {
+      max-width: 18ch;
+    }
+  }
+
+  @media(max-width: 320px) {
+    > h3, p {
+      max-width: 14ch;
+    }
   }
 `

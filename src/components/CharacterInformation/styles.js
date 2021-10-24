@@ -5,7 +5,8 @@ export const Container = styled.div`
   margin: 50px 0;
   display: flex;
   align-items: center;
-  padding: 0;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, .05);
 
   @media(max-width: 768px) {
     flex-direction: column;
@@ -14,7 +15,7 @@ export const Container = styled.div`
   }
 `
 
-export const Image = styled.div`
+export const ImageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,7 +44,8 @@ export const Description = styled.div`
 
   > h1 {
     color: gray;
-    margin: 0
+    margin: 0;
+    text-align: center;
   }
 
   > p {
