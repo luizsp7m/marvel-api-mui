@@ -5,10 +5,12 @@
   "dependencies": {
     "@emotion/cache": "latest",
     "@emotion/react": "latest",
-    "@emotion/styled": "latest",
     "@emotion/server": "latest",
+    "@emotion/styled": "latest",
     "@mui/material": "latest",
+    "axios": "^0.23.0",
     "clsx": "latest",
+    "md5": "^2.3.0",
     "next": "latest",
     "prop-types": "latest",
     "react": "latest",
