@@ -7,21 +7,21 @@ export const Container = styled.div`
   border: 1px solid rgba(0, 0, 0, .05);
   cursor: pointer;
   background: #fafafa;
+  transition: background .25s;
 
   &:hover {
-    > img {
-      opacity: .85;
-    }
+    filter: brightness(.80);
+
+    background: #eb1d27;
 
     > h3 {
-      color: #eb1d27;
+      color: #fafafa;
     }
   }
 
   > img {
     width: 100%;
     object-fit: cover;
-    transition: opacity .25s;
   }
 
   > h3 {
@@ -35,25 +35,14 @@ export const Container = styled.div`
     white-space: nowrap;
   }
 
-  > p {
-    color: gray;
-    font-size: 13px;
-    text-align: center;
-
-    max-width: 14ch;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
   @media(max-width: 375px) {
-    > h3, p {
+    > h3 {
       max-width: 18ch;
     }
   }
 
   @media(max-width: 320px) {
-    > h3, p {
+    > h3 {
       max-width: 14ch;
     }
   }

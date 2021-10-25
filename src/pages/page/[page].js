@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 
 import Layout from "../../components/Layout";
-import Card from "../../components/Card";
+import CardCharacter from "../../components/CardCharacter";
 import Title from "../../components/Title";
 import Pagination from "../../components/Pagination";
 
@@ -50,7 +50,7 @@ export default function CharactersPage({ characters }) {
       <Grid container spacing={2} my={3}>
         {characters.map(character => (
           <Grid key={character.id} item xs={6} sm={4} md={3} lg={2}>
-            <Card content={character} />
+            <CardCharacter character={character} />
           </Grid>
         ))}
       </Grid>

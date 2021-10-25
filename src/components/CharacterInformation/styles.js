@@ -19,20 +19,6 @@ export const ImageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  > img {
-    width: 210px;
-    height: auto;
-    object-fit: cover;
-  }
-
-  @media(max-width: 768px) {
-    > img {
-      height: 100px;
-      width: 100px;
-      border-radius: 50%;
-    }
-  }
 `
 
 export const Description = styled.div`  

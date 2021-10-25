@@ -11,11 +11,21 @@ export const Content = styled.div`
   margin: 0 auto;
   padding: 30px 0;
 
-  > h5 {
+  > button {
     cursor: pointer;
-    color: #007fff;
+    background: 0;
+    border: 0;
+    padding: 10px 28px;
+    border: 1px solid #EB1D27;
+    color: #EB1D27;
+    border-radius: 5px;
     margin-bottom: 30px;
-    font-weight: 400;
-    font-size: 13px;
+    font-weight: bold;
+    transition: background .25s;
+
+    &:hover {
+      background: #EB1D27;
+      color: #fafafa;
+    }
   }
 `

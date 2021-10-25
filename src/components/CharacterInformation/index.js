@@ -3,7 +3,7 @@ import { Container, ImageContainer, Description } from './styles';
 import Image from 'next/image';
 
 export default function CharacterInformation({ character }) {
-  const imgFormatted = `${character.thumbnail.path}/portrait_incredible.${character.thumbnail.extension}`;
+  const imgFormatted = `${character.thumbnail.path}/standard_xlarge.${character.thumbnail.extension}`;
 
   return (
     <Container>
@@ -11,8 +11,8 @@ export default function CharacterInformation({ character }) {
         <Image
           src={imgFormatted}
           alt={character.name}
-          width={300}
-          height={450}
+          width={250}
+          height={250}
         />
       </ImageContainer>
 
