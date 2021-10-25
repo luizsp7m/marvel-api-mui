@@ -9,7 +9,7 @@ import { Grid } from '@mui/material';
 
 import { useRouter } from 'next/router'
 
-const MAX = 16; // 16 x ${limit} = 1600
+const MAX = 1; // 16 x ${limit} = 1600
 
 export async function getStaticPaths() {
 
@@ -19,7 +19,7 @@ export async function getStaticPaths() {
   for (let i = 0; i < MAX; i++) { // Todos os 1549 personagens
     const result = await api.get("/characters", {
       params: {
-        limit: 100, // 100
+        limit: 90, // 100
         offset: offset,
       }
     });
