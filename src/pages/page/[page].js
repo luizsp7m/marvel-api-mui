@@ -7,7 +7,7 @@ import Pagination from "../../components/Pagination";
 
 import { api } from '../../services/api';
 
-const MAX = 90; // 1560 // Quantidade de personagens
+const MAX = 1560; // 1560 // Quantidade de personagens
 const LIMIT_PER_PAGE = 18;
 const NUM_PAGES = Math.round(MAX / LIMIT_PER_PAGE);
 
