@@ -9,7 +9,7 @@ export default function GenericCard({ item }) {
     <Container>
       <Image
         src={imgFormatted}
-        alt={item.name}
+        alt={item.title}
         width={300}
         height={450}
       />
