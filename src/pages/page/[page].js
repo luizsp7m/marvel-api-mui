@@ -5,6 +5,8 @@ import CardCharacter from "../../components/CardCharacter";
 import Title from "../../components/Title";
 import Pagination from "../../components/Pagination";
 
+import { useRouter } from 'next/router';
+
 import { api } from '../../services/api';
 
 const MAX = 90; // 1560 // Quantidade de personagens
@@ -21,7 +23,7 @@ export function getStaticPaths() {
   console.log(pages); // Páginas
 
   return {
-    fallback: false, // false = 404
+    fallback: true, // false = 404
     paths: pages,
   }
 }
@@ -42,12 +44,20 @@ export async function getStaticProps({ params }) {
   }
 }
 
-export default function CharactersPage({ characters }) {
+export default function CharactersPage({ characters = {} }) {
+  const router = useRouter();
+
+  if(router.isFallback) return (
+    <Layout title="Loading...">
+      <h5 className="loading">Loading...</h5>
+    </Layout>
+  )
+
   return (
     <Layout title="Characters">
       <Title>Characters</Title>
 
-      <Grid container spacing={2} my={3}>
+      <Grid container spacing={3} my={3} mb={6}>
         {characters.map(character => (
           <Grid key={character.id} item xs={6} sm={4} md={3} lg={2}>
             <CardCharacter character={character} />

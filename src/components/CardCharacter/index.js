@@ -1,22 +1,24 @@
-import { Container } from './styles';
-
-import Image from 'next/image';
+import { Container, StyledImage } from './styles';
 
 import router from 'next/router';
 
 export default function CardCharacter({ character }) {
-  const imgFormatted = `${character.thumbnail.path}/portrait_uncanny.${character.thumbnail.extension}`;
+  const imgFormatted = `${character.thumbnail.path}/standard_fantastic.${character.thumbnail.extension}`;
 
   return (
     <Container onClick={() => router.push(`/character/${character.id}`)}>
-      <Image
-        src={imgFormatted}
-        alt={character.name}
-        width={300}
-        height={450}
-      />
+      <div className="characterImage">
+        <StyledImage
+          src={imgFormatted}
+          alt={character.name}
+          width={300}
+          height={300}
+        />
+      </div>
 
-      <h3>{character.name}</h3>
+      <div className="characterName">
+        <h3>{character.name}</h3>
+      </div>
     </Container>
   );
 }

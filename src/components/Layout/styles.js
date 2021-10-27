@@ -7,7 +7,7 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   max-width: 1280px;
-  width: 85%;
+  width: 90%;
   margin: 0 auto;
   padding: 30px 0;
 
@@ -19,9 +19,9 @@ export const Content = styled.div`
     border: 1px solid #EB1D27;
     color: #EB1D27;
     border-radius: 5px;
-    margin-bottom: 30px;
     font-weight: bold;
     transition: background .25s;
+    margin-bottom: 10px;
 
     &:hover {
       background: #EB1D27;

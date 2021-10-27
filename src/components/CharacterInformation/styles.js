@@ -1,12 +1,18 @@
 import styled from '@emotion/styled';
 
+import Image from 'next/image';
+
+export const StyledImage = styled(Image)`
+  border-radius: 10px;
+`
+
 export const Container = styled.div`
-  background: #fafafa;
-  margin: 50px 0;
   display: flex;
   align-items: center;
-  padding: 10px;
-  border: 1px solid rgba(0, 0, 0, .05);
+  padding: 20px;
+  margin: 30px 0 60px 0;
+  border-radius: 10px;
+  justify-content: center;
 
   @media(max-width: 768px) {
     flex-direction: column;
@@ -22,11 +28,12 @@ export const ImageContainer = styled.div`
 `
 
 export const Description = styled.div`  
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0 30px;
+
+  max-width: 668px;
 
   > h1 {
     color: gray;
@@ -39,6 +46,45 @@ export const Description = styled.div`
     width: 70%;
     color: gray;
     line-height: 30px;
+  }
+
+  > div.moreInformation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+
+    > span {
+      font-size: 16px;
+      font-weight: 500;
+      color: gray;
+    }
+
+    > div {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+
+      > a {
+        font-size: 14px;
+        width: 100px;
+        text-align: center;
+        text-decoration: none;
+        padding: 6px 14px;
+        border: 1px solid #2c3e50;
+        color: #2c3e50;
+        border-radius: 5px;
+        font-weight: 400;
+        text-transform: capitalize;
+        transition: background .25s;
+
+        &:hover {
+          background: #2c3e50;
+          color: #fafafa;
+        }
+      }
+    }
   }
 
   @media(max-width: 768px) {

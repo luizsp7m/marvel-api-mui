@@ -43,7 +43,7 @@ export async function getStaticPaths() {
   console.log(paths); // ID's
 
   return {
-    fallback: false, // false = 404
+    fallback: true, // false = 404
     paths,
   }
 }
@@ -53,58 +53,24 @@ export async function getStaticProps({ params }) {
   const result = await api.get(`characters/${params.id}`);
 
   // Comics
-
-  let comicList = result.data.data.results[0].comics.items;
-
-  let comicUrlList = [];
-
-  for (let i in comicList) {
-    comicUrlList.push(comicList[i].resourceURI);
-  }
-
-  let comicsId = [];
-
-  for (let i in comicUrlList) {
-    comicsId.push(comicUrlList[i].split("/")[6]);
-  }
-
-  let comics = [];
-
-  for (let i in comicsId) {
-    const result = await api.get(`/comics/${comicsId[i]}`);
-
-    comics.push(result.data.data.results);
-  }
+  const comics = result.data.data.results[0].comics.items.map(async (comicUrl) => {
+    const comicId = comicUrl.resourceURI.split("/")[6];
+    const comic = await api.get(`comics/${comicId}`);
+    return comic.data.data.results[0];
+  });
 
   // Series
-
-  let serieList = result.data.data.results[0].series.items;
-
-  let serieUrlList = [];
-
-  for (let i in serieList) {
-    serieUrlList.push(serieList[i].resourceURI);
-  }
-
-  let seriesId = [];
-
-  for (let i in serieUrlList) {
-    seriesId.push(serieUrlList[i].split("/")[6]);
-  }
-
-  let series = [];
-
-  for (let i in seriesId) {
-    const result = await api.get(`/series/${seriesId[i]}`);
-
-    series.push(result.data.data.results);
-  }
+  const series = result.data.data.results[0].series.items.map(async (serieUrl) => {
+    const serieId = serieUrl.resourceURI.split("/")[6];
+    const serie = await api.get(`series/${serieId}`);
+    return serie.data.data.results[0];
+  });
 
   return {
     props: {
-      character: result.data.data.results,
-      comics: comics,
-      series: series,
+      character: result.data.data.results[0],
+      comics: await Promise.all(comics),
+      series: await Promise.all(series),
     }
   }
 }
@@ -112,22 +78,27 @@ export async function getStaticProps({ params }) {
 export default function CharacterPage({ character, comics, series }) {
   const router = useRouter();
 
+  if(router.isFallback) return (
+    <Layout title="Loading...">
+      <h5 className="loading">Loading...</h5>
+    </Layout>
+  )
+
   return (
-    <Layout title={character[0].name}>
+    <Layout title={character.name}>
 
       <button onClick={() => router.back()}>Back</button>
 
       <div className="description">
-        <Title>Description</Title>
-        <CharacterInformation character={character[0]} />
+        <CharacterInformation character={character} />
       </div>
 
       <div className="comics">
         <Title>Comics</Title>
-        <Grid container spacing={3} my={3}>
+        <Grid container spacing={3} mt={3} mb={6}>
           {comics.map(comic => (
-            <Grid key={comic[0].id} item xs={6} sm={4} md={3} lg={2}>
-              <GenericCard item={comic[0]} />
+            <Grid key={comic.id} item xs={6} sm={4} md={3} lg={2}>
+              <GenericCard item={comic} />
             </Grid>
           ))}
         </Grid>
@@ -135,10 +106,10 @@ export default function CharacterPage({ character, comics, series }) {
 
       <div className="series">
         <Title>Series</Title>
-        <Grid container spacing={3} my={3}>
+        <Grid container spacing={3} mt={3} mb={6}>
           {series.map(serie => (
-            <Grid key={serie[0].id} item xs={6} sm={4} md={3} lg={2}>
-              <GenericCard item={serie[0]} />
+            <Grid key={serie.id} item xs={6} sm={4} md={3} lg={2}>
+              <GenericCard item={serie} />
             </Grid>
           ))}
         </Grid>

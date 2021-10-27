@@ -4,7 +4,6 @@ export const Container = styled.div`
   > h1 {
     font-size: 22px;
     color: gray;
-    margin: 0;
     position: relative;
 
     &::before {

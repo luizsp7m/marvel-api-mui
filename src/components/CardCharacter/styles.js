@@ -1,49 +1,70 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
+
+import Image from 'next/image';
+
+export const StyledImage = styled(Image)`
+  width: 100%;
+  object-fit: cover;
+`;
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  border: 1px solid rgba(0, 0, 0, .05);
   cursor: pointer;
-  background: #fafafa;
-  transition: background .25s;
+  overflow: hidden;
 
   &:hover {
-    filter: brightness(.80);
+    > div.characterImage {
+      transform: scale(1.05);
+      filter: brightness(.9);
+    }
 
-    background: #eb1d27;
-
-    > h3 {
-      color: #fafafa;
+    > div.characterName {
+      background-position: top;
     }
   }
 
-  > img {
-    width: 100%;
-    object-fit: cover;
-  }
-
-  > h3 {
-    color: gray;
-    font-size: 13px;
-    text-align: center;
-
-    max-width: 20ch;
+  > div.characterImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    transition: .3s;
   }
 
-  @media(max-width: 375px) {
-    > h3 {
-      max-width: 18ch;
+  > div.characterName {
+    padding: 0 1.35rem;
+    display: flex;
+    justify-content: center;
+    height: 145px;
+    
+    border-top: 5px solid #EB1D27;
+
+    background-image: 
+    linear-gradient(to bottom, #EB1D27, 50%, #151515 50%);
+    background-size: 100% 200%;
+    background-position: bottom;
+    transition: background-position 0.5s ease-in-out;
+
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: 2;
+      bottom: -15px;
+      right: -15px;
+      width: 25px;
+      height: 25px;
+      transform: rotate(45deg);
+      background-color: #f0f0f5;
     }
-  }
 
-  @media(max-width: 320px) {
     > h3 {
-      max-width: 14ch;
+      font-size: 14px;
+      text-align: center;
+      color: #fafafa;
+      font-weight: 500;
     }
   }
 `
