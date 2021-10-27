@@ -8,7 +8,7 @@ export default function GenericCard({ item }) {
       <div className="cardImage">
         <StyledImage
           src={imgFormatted}
-          alt={item.name}
+          alt={item.title}
           width={300}
           height={450}
         />
