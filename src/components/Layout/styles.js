@@ -11,6 +11,10 @@ export const Content = styled.div`
   margin: 0 auto;
   padding: 30px 0;
 
+  > h5.loading {
+    color: gray;
+  }
+
   > button {
     cursor: pointer;
     background: 0;

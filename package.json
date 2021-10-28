@@ -12,6 +12,7 @@
     "clsx": "latest",
     "md5": "^2.3.0",
     "next": "latest",
+    "nprogress": "^0.2.0",
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest"

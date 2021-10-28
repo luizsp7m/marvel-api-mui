@@ -7,6 +7,28 @@ import { CacheProvider } from '@emotion/react';
 import theme from '../styles/theme';
 import createEmotionCache from '../styles/createEmotionCache';
 
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+import { Router } from 'next/dist/client/router';
+
+NProgress.configure({
+  showSpinner: false,
+  trickleRate: 0.1,
+  trickleSpeed: 300,
+});
+
+Router.events.on('routeChangeStart', () => {
+  NProgress.start();
+});
+
+Router.events.on('routeChangeComplete', () => {
+  NProgress.done();
+});
+
+Router.events.on('routeChangeError', () => {
+  NProgress.done();
+});
+
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
