@@ -1,125 +1,89 @@
-import Layout from '../../components/Layout';
-import CharacterInformation from '../../components/CharacterInformation';
-import GenericCard from '../../components/GenericCard';
-import Title from '../../components/Title';
+import Layout from "../../components/Layout";
+import CharacterInformation from "../../components/CharacterInformation";
+import GenericCard from "../../components/GenericCard";
+import Title from "../../components/Title";
 
-import { api } from '../../services/api';
+import { api } from "../../services/api";
+import { Grid } from "@mui/material";
+import { useRouter } from "next/router";
+import Error from "next/error";
 
-import { Grid } from '@mui/material';
-
-import { useRouter } from 'next/router'
-
-import Error from 'next/error';
-
-const MAX = 1; // 16 x ${limit} = 1600
-
-export default function CharacterPage({ character, comics, series, errorCode }) {
+export default function CharacterPage({
+  character,
+  comics,
+  series,
+  errorCode,
+}) {
   const router = useRouter();
 
-  if (router.isFallback) return (
-    <Layout title="Loading...">
-      <h5 className="loading">Loading...</h5>
-    </Layout>
-  )
-
-  if (errorCode) return <Error statusCode={errorCode} />
+  if (errorCode) return <Error statusCode={errorCode} />;
 
   return (
     <Layout title={character.name}>
-
       <button onClick={() => router.back()}>Back</button>
 
       <div className="description">
         <CharacterInformation character={character} />
       </div>
 
-      <div className="comics">
+      {/* <div className="comics">
         <Title>Comics</Title>
         <Grid container spacing={3} mt={3} mb={6}>
-          {comics.map(comic => (
+          {comics.map((comic) => (
             <Grid key={comic.id} item xs={6} sm={4} md={3} lg={2}>
               <GenericCard item={comic} />
             </Grid>
           ))}
         </Grid>
-      </div>
+      </div> */}
 
-      <div className="series">
+      {/* <div className="series">
         <Title>Series</Title>
         <Grid container spacing={3} mt={3} mb={6}>
-          {series.map(serie => (
+          {series.map((serie) => (
             <Grid key={serie.id} item xs={6} sm={4} md={3} lg={2}>
               <GenericCard item={serie} />
             </Grid>
           ))}
         </Grid>
-      </div>
+      </div> */}
     </Layout>
   );
 }
 
-export async function getStaticPaths() {
-
-  let characterList = [];
-  let offset = 0;
-
-  for (let i = 0; i < MAX; i++) { // Páginas estáticas de personagens
-    const result = await api.get("/characters", {
-      params: {
-        limit: 90, // 100
-        offset: offset,
-      }
-    });
-
-    characterList.push(result.data.data.results);
-
-    offset = offset + 100;
-  }
-
-  let paths = [];
-
-  for (let i = 0; i < characterList.length; i++) {
-    characterList[i].map(character => {
-      paths.push({ params: { id: `${character.id}` } });
-    })
-  }
-
-  return {
-    fallback: true, // false = 404
-    paths,
-  }
-}
-
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   try {
     const result = await api.get(`characters/${params.id}`);
+    const character = result.data.data.results[0];
 
-    // Comics
-    const comics = result.data.data.results[0].comics.items.map(async (comicUrl) => {
-      const comicId = comicUrl.resourceURI.split("/")[6];
-      const comic = await api.get(`comics/${comicId}`);
-      return comic.data.data.results[0];
-    });
+    // const comics = await Promise.all(
+    //   character.comics.items.map(async (comicUrl) => {
+    //     const comicId = comicUrl.resourceURI.split("/").pop();
+    //     const comic = await api.get(`comics/${comicId}`);
+    //     return comic.data.data.results[0];
+    //   })
+    // );
 
-    // Series
-    const series = result.data.data.results[0].series.items.map(async (serieUrl) => {
-      const serieId = serieUrl.resourceURI.split("/")[6];
-      const serie = await api.get(`series/${serieId}`);
-      return serie.data.data.results[0];
-    });
+    // const series = await Promise.all(
+    //   character.series.items.map(async (serieUrl) => {
+    //     const serieId = serieUrl.resourceURI.split("/").pop();
+    //     const serie = await api.get(`series/${serieId}`);
+    //     return serie.data.data.results[0];
+    //   })
+    // );
 
     return {
       props: {
-        character: result.data.data.results[0],
-        comics: await Promise.all(comics),
-        series: await Promise.all(series),
-      }
-    }
+        character,
+        comics: [],
+        series: [],
+      },
+    };
   } catch (error) {
     return {
       props: {
-        errorCode: error.response.status
-      }
-    }
+        errorCode: error?.response?.status || 500,
+      },
+    };
   }
 }

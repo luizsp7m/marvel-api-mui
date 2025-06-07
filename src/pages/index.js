@@ -1,8 +1,8 @@
+import router from "next/router";
+import Layout from "../components/Layout";
+
 import { useEffect } from "react";
-
-import router from 'next/router';
-
-import Layout from '../components/Layout';
+import { CircularProgress, Grid } from "@mui/material";
 
 export default function Home() {
   useEffect(() => {
@@ -11,7 +11,9 @@ export default function Home() {
 
   return (
     <Layout title="Home">
-
+      <Grid container justifyContent="center" alignItems="center">
+        <CircularProgress />
+      </Grid>
     </Layout>
   );
 }
